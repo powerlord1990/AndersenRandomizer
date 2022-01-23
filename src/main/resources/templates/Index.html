@@ -14,7 +14,7 @@
 <div class="container back" ng-controller="indexController">
     <form class="">
         <textarea id="textarea1" ng-model="input"></textarea>
-        <button class="btn btn-danger" ng-click="addNewStudents(input)">Отправить</button>
+        <button class="btn btn-submit" ng-click="addNewStudents(input)">Отправить</button>
     </form>
     <table class="table table-hover">
         <thead>
@@ -24,6 +24,8 @@
             <td>Имя</td>
             <td>Фамилия</td>
             <td>Очки</td>
+            <td>Задавал</td>
+            <td>Отвечал</td>
         </tr>
         </thead>
         <tbody>
@@ -33,9 +35,17 @@
             <td>{{s.firstname}}</td>
             <td>{{s.secondname}}</td>
             <td>{{s.score}}</td>
+            <td>{{s.isAsked}}</td>
+            <td>{{s.isPolled}}</td>
         </tr>
         </tbody>
     </table>
+    <form>
+        <span ng-model = "s1">{{studfirst}}</span>
+        <span ng-model = "s2">{{studsecond}}</span>
+        <span ng-model = "result">{{result}}</span>
+        <button class="btn btn-submit" ng-click="play()">Новая пара</button>
+    </form>
 </div>
 </body>
 </html>

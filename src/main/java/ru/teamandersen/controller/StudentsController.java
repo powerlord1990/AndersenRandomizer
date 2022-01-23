@@ -6,13 +6,14 @@ package ru.teamandersen.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.teamandersen.dtos.StudentRequestBodyDto;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.service.StudentService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("api/v1/students")
 @AllArgsConstructor
 public class StudentsController {
     @Autowired
@@ -26,5 +27,10 @@ public class StudentsController {
     @PostMapping("")
     public List<Student> addStudent(@RequestBody String text){
         return studentService.addNewStudents(text);
+    }
+
+    @GetMapping("/play")
+    public List<StudentRequestBodyDto> getTwoStudentsFromDifferentTeam(){
+        return studentService.getTwoStudentsFromDifferentTeam();
     }
 }
