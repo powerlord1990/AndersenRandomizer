@@ -1,0 +1,41 @@
+<!doctype html>
+<html ng-app="app" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+<div class="container back" ng-controller="indexController">
+    <form class="">
+        <textarea id="textarea1" ng-model="input"></textarea>
+        <button class="btn btn-danger" ng-click="addNewStudents(input)">Отправить</button>
+    </form>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Команда</td>
+            <td>Имя</td>
+            <td>Фамилия</td>
+            <td>Очки</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="s in StudentsPage">
+            <td>{{s.id}}</td>
+            <td>{{s.teamId}}</td>
+            <td>{{s.firstname}}</td>
+            <td>{{s.secondname}}</td>
+            <td>{{s.score}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
