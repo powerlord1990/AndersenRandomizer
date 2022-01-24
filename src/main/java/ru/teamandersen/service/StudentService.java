@@ -29,14 +29,11 @@ public class StudentService {
         return studentRepository.save(new Student.Builder(studentDto.getTeamId(), studentDto.getFirstname(), studentDto.getSecondname()).build());
     }
 
-    public List<Student> addNewStudents(String text) {
-        //TODO распарсить text
-        List<Student> list = new ArrayList<>();
+    public void addNewStudents(String text) {
         String[] strings = text.split("\n");
-        for (String s: strings) {
+        for (String s : strings) {
             String[] words = s.split(" ");
-            list.add(new Student.Builder(Long.parseLong(words[0]), words[1], words[2]).build());
+            studentRepository.save(new Student.Builder(Long.parseLong(words[0]), words[1], words[2]).build());
         }
-        return list;
     }
 }
