@@ -29,11 +29,16 @@ public class StudentService {
     }
 
     public Student addNewStudent(StudentRequestBodyDto studentDto) {
-        return studentRepository.save(new Student.Builder(studentDto.getTeamId(), studentDto.getFirstname(),studentDto.getSecondname()).build());
+        return studentRepository.save(new Student.Builder(studentDto.getTeamId(), studentDto.getFirstname(), studentDto.getSecondname()).build());
     }
 
     public void addNewStudents(String text) {
-        //TODO
+
+        String[] strings = text.split("\n");
+        for (String s : strings) {
+            String[] words = s.split(" ");
+            studentRepository.save(new Student.Builder(Long.parseLong(words[0]), words[1], words[2]).build());
+        }
     }
 
     public List<StudentRequestBodyDto> getTwoStudentsFromDifferentTeam(){
@@ -49,5 +54,4 @@ public class StudentService {
     public void clearAll(){
         studentRepository.deleteAll();
     }
-
 }
