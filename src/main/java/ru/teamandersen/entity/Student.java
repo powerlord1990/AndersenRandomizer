@@ -29,14 +29,23 @@ public class Student {
     @Column(name = "SECONDNAME")
     private String secondname;
 
-    @Column(name = "Score")
+    @Column(name = "SCORE")
     private Integer score;
+
+    @Column(name = "IS_ASKED")
+    private Boolean isAsked;
+
+    @Column(name = "IS_POLLED")
+    private Boolean isPolled;
+
 
     public static class Builder {
         private final Long teamId;
         private final String firstname;
         private final String secondname;
         private Integer score = 0;
+        private Boolean isAsked = false;
+        private Boolean isPolled = false;
 
         public Builder(Long teamId, String firstname, String secondname) {
             this.teamId = teamId;
@@ -46,6 +55,16 @@ public class Student {
 
         public Builder score(int score) {
             this.score = score;
+            return this;
+        }
+
+        public Builder isAsked(boolean isAsked) {
+            this.isAsked = isAsked;
+            return this;
+        }
+
+        public Builder isPolled(boolean isPolled) {
+            this.isPolled = isPolled;
             return this;
         }
 
@@ -59,5 +78,20 @@ public class Student {
         firstname = builder.firstname;
         secondname = builder.secondname;
         score = builder.score;
+        isAsked = builder.isAsked;
+        isPolled = builder.isPolled;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", teamId=" + teamId +
+                ", firstname='" + firstname + '\'' +
+                ", secondname='" + secondname + '\'' +
+                ", score=" + score +
+                ", isAsked=" + isAsked +
+                ", isPolled=" + isPolled +
+                '}';
     }
 }

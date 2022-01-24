@@ -6,10 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.teamandersen.entity.Student;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
     Optional<Student> findStudentByFirstname(String firstname);
     Optional<Student> findStudentByFirstnameAndSecondname(String firstname, String secondname);
+    List<Student> findStudentByIsAskedIsFalse();
+    List<Student> findStudentByIsPolledIsFalse();
 }

@@ -12,11 +12,15 @@ public class StudentRequestBodyDto {
     private String firstname;
     private String secondname;
     private Integer score;
+    private Boolean isAsked;
+    private Boolean isPolled;
 
     public StudentRequestBodyDto(Student student) {
         this.teamId = student.getTeamId();
         this.firstname = student.getFirstname();
         this.secondname = student.getSecondname();
         this.score = student.getScore();
+        this.isAsked = student.getIsAsked();
+        this.isPolled = student.getIsPolled();
     }
 }
