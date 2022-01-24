@@ -3,8 +3,6 @@ package ru.teamandersen.service;
 23.01.2022: Alexey created this file inside the package: ru.teamandersen.service 
 */
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.teamandersen.component.SecureRandomGetStudents;
 import ru.teamandersen.dtos.StudentRequestBodyDto;
@@ -16,13 +14,15 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class StudentService {
-    @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
-    @Autowired
-    SecureRandomGetStudents secureRandomGetStudents;
+    private final SecureRandomGetStudents secureRandomGetStudents;
+
+    public StudentService(StudentRepository studentRepository, SecureRandomGetStudents secureRandomGetStudents) {
+        this.studentRepository = studentRepository;
+        this.secureRandomGetStudents = secureRandomGetStudents;
+    }
 
     public List<Student> findAll() {
         return studentRepository.findAll();
@@ -32,9 +32,8 @@ public class StudentService {
         return studentRepository.save(new Student.Builder(studentDto.getTeamId(), studentDto.getFirstname(),studentDto.getSecondname()).build());
     }
 
-    public List<Student> addNewStudents(String text) {
+    public void addNewStudents(String text) {
         //TODO
-        return Collections.emptyList();
     }
 
     public List<StudentRequestBodyDto> getTwoStudentsFromDifferentTeam(){
@@ -47,5 +46,8 @@ public class StudentService {
         return studentRequestList;
     }
 
+    public void clearAll(){
+        studentRepository.deleteAll();
+    }
 
 }

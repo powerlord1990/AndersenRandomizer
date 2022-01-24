@@ -7,6 +7,12 @@ questioner,2nd is respondent;
 * User's from same team, can't ask a question to each other, 
 but if last 2 user's in queue from same team - they must ask question to each other.
 
+TODO:
+* [ ] Add text validator, which consume some String and receive List of Students to Repository
+* [ ] Add function to import .xlsx and .txt files to database
+* [ ] Add new frontend realization
+* [ ] Code refactoring
+
 Used stack:
 * JDK 11
 * Spring boot

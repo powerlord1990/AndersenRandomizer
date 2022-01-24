@@ -9,10 +9,10 @@ import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.StudentRepository;
 
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//TODO need refactoring
 @Component
 public class SecureRandomGetStudents {
     private final StudentRepository studentRepository;
@@ -50,7 +50,7 @@ public class SecureRandomGetStudents {
     }
 
     private Student getRandomMove(List<Student> students) {
-        if (students.isEmpty()){
+        if (students.isEmpty()) {
             return last;
         }
         return students.get(random.nextInt(students.size()));
