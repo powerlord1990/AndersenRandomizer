@@ -10,6 +10,7 @@ import ru.teamandersen.dtos.StudentRequestBodyDto;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.StudentRepository;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -30,9 +31,12 @@ public class StudentService {
 
     public List<Student> addNewStudents(String text) {
         //TODO распарсить text
-        String[] words = text.split(" ");
-        Student student = new Student.Builder(Long.parseLong(words[0]), words[1], words[2]).build();
-
-        return Collections.EMPTY_LIST;
+        List<Student> list = new ArrayList<>();
+        String[] strings = text.split("\n");
+        for (String s: strings) {
+            String[] words = s.split(" ");
+            list.add(new Student.Builder(Long.parseLong(words[0]), words[1], words[2]).build());
+        }
+        return list;
     }
 }
