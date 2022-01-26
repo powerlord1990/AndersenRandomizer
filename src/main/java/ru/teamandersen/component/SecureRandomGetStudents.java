@@ -3,7 +3,6 @@ package ru.teamandersen.component;
 24.01.2022: Alexey created this file inside the package: ru.teamandersen.component 
 */
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.StudentRepository;
@@ -22,7 +21,6 @@ public class SecureRandomGetStudents {
     private Student prev;
     private Student last;
 
-    @Autowired
     public SecureRandomGetStudents(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
@@ -42,7 +40,7 @@ public class SecureRandomGetStudents {
         studentRepository.save(toPoll);
         prev = toPoll;
         isFirst = false;
-        return new Student[]{toAsk, toPoll};
+        return new Student[]{toAsk, toPoll}; // must return student which ask and student which poll
     }
 
     private List<Student> getStudentToPollFilter(List<Student> students, Student toAsk) {
