@@ -33,7 +33,6 @@ public class StudentService {
     }
 
     public void addNewStudents(String text) {
-
         String[] strings = text.split("\n");
         for (String s : strings) {
             String[] words = s.split(" ");
@@ -41,17 +40,19 @@ public class StudentService {
         }
     }
 
-    public List<StudentRequestBodyDto> getTwoStudentsFromDifferentTeam(){
+    public List<StudentRequestBodyDto> getTwoStudentsFromDifferentTeam() {
         Student[] students = secureRandomGetStudents.getStudents();
         List<StudentRequestBodyDto> studentRequestList = new ArrayList<>();
-        for (Student s: students){
+        for (Student s : students) {
             studentRequestList.add(new StudentRequestBodyDto(s));
         }
-        if (studentRequestList.get(0).getTeamId() == studentRequestList.get(1).getTeamId()) return Collections.emptyList();
+        if (studentRequestList.get(0).getTeamId() == studentRequestList.get(1).getTeamId())
+            return Collections.emptyList();
         return studentRequestList;
     }
 
-    public void clearAll(){
+    public void clearAll() {
         studentRepository.deleteAll();
     }
+
 }
