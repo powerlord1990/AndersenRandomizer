@@ -7,9 +7,22 @@ questioner,2nd is respondent;
 * User's from same team, can't ask a question to each other, 
 but if last 2 user's in queue from same team - they must ask question to each other.
 
+##How to use Excel import:
+1. Make this format of excel data:
+
+![example of excel format](src/main/resources/static/imgs/excel.png)
+2. Set path of your's excel file to that input block
+
+![Input place](src/main/resources/static/imgs/excel2.png)
+3. Press that button
+
+![Button to import](src/main/resources/static/imgs/excel3.png)
+
+4. ... Done
+
 TODO:
-* [ ] Add text validator, which consume some String and receive List of Students to Repository
-* [ ] Add function to import .xlsx and .txt files to database
+* [x] Add text validator, which consume some String and receive List of Students to Repository
+* [x] Add function to import .xlsx to database
 * [ ] Add new frontend realization
 * [ ] Code refactoring
 
