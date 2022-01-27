@@ -8,12 +8,18 @@ import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.StudentRepository;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class SecureRandomGetStudents {
     private final StudentRepository studentRepository;
+    List<Student> studentPoll = new ArrayList<>();
+    List<Student> studentAsk = new ArrayList<>();
+
 
     private boolean isFirst = true;
     private final SecureRandom random = new SecureRandom();
@@ -25,28 +31,39 @@ public class SecureRandomGetStudents {
     }
 
     public Student[] getStudents() {
-        Student toAsk;
-        Student toPoll;
+        studentAsk = studentRepository.findStudentByIsAskedIsFalse();
+        studentPoll = studentRepository.findStudentsByIsPolledIsFalse();
+        Student ask;
+
         if (isFirst) {
-            toAsk = getRandomMove(studentRepository.findAll());
-            last = toAsk;
+            ask = getRandomMove(studentAsk);
+            last = ask;
             isFirst = false;
-        } else toAsk = prev;
-        toAsk.setIsAsked(true);
-        toPoll = getRandomMove(getStudentToPollFilter(studentRepository.findStudentByIsPolledIsFalse(), toAsk));
-        toPoll.setIsPolled(true);
-        if(!toAsk.equals(toPoll)){
-            studentRepository.save(toAsk);
-            studentRepository.save(toPoll);
+        } else ask = prev;
+
+        Student poll = getRandomMove(getStudentToPollFilter(studentPoll, last));
+        if (!studentRepository.findAll().isEmpty() && ask != poll) {
+            ask.setIsAsked(true);
+            poll.setIsPolled(true);
+            prev = poll;
+            studentRepository.save(ask);
+            studentRepository.save(poll);
+            return new Student[]{ask, poll};
         }
-        prev = toPoll;
-        return new Student[]{toAsk, toPoll}; // must return student which ask and student which poll
+        return new Student[]{};
     }
 
     private List<Student> getStudentToPollFilter(List<Student> students, Student toAsk) {
-        return students.stream().filter(x -> !x.getIsPolled()
-                && !(x.getTeamId() == toAsk.getTeamId())
-                && x.getId() != last.getId()).collect(Collectors.toList());
+        for (Student s : students) {
+            if (!toAsk.getTeamId().equals(s.getTeamId())) {
+                return students.stream().filter(x -> !x.getIsPolled()
+                        && !(x.getTeamId() == toAsk.getTeamId())
+                        && x.getId() != last.getId()).collect(Collectors.toList());
+            }
+            return students.stream().filter(x -> toAsk != x && !x.getIsPolled() && x.getId() != last.getId()).collect(Collectors.toList());
+
+        }
+        return Collections.emptyList();
     }
 
     private Student getRandomMove(List<Student> students) {
@@ -54,5 +71,10 @@ public class SecureRandomGetStudents {
             return last;
         }
         return students.get(random.nextInt(students.size()));
+    }
+
+    public void clearQueue() {
+        prev = null;
+        last = null;
     }
 }
