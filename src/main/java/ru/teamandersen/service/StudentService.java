@@ -4,7 +4,7 @@ package ru.teamandersen.service;
 */
 
 import org.springframework.stereotype.Service;
-import ru.teamandersen.component.SecureRandomGetStudents;
+import ru.teamandersen.component.RandomGetStudents;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.ExcelStudentRepository;
 import ru.teamandersen.repository.StudentRepository;
@@ -17,12 +17,12 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final ExcelStudentRepository excelStudentRepository;
 
-    private final SecureRandomGetStudents secureRandomGetStudents;
+    private final RandomGetStudents randomGetStudents;
 
-    public StudentService(StudentRepository studentRepository, ExcelStudentRepository excelStudentRepository, SecureRandomGetStudents secureRandomGetStudents) {
+    public StudentService(StudentRepository studentRepository, ExcelStudentRepository excelStudentRepository, RandomGetStudents randomGetStudents) {
         this.studentRepository = studentRepository;
         this.excelStudentRepository = excelStudentRepository;
-        this.secureRandomGetStudents = secureRandomGetStudents;
+        this.randomGetStudents = randomGetStudents;
     }
 
     public List<Student> findAll() {
@@ -47,7 +47,7 @@ public class StudentService {
     }
 
     public List<Student> getTwoStudentsFromDifferentTeam() {
-        Student[] students = secureRandomGetStudents.getStudents();
+        Student[] students = randomGetStudents.getStudents();
         if (students.length==0) return Collections.emptyList();
         return Arrays.stream(students).collect(Collectors.toList());
     }
@@ -63,6 +63,6 @@ public class StudentService {
 
     public void clearAll() {
         studentRepository.deleteAll();
-        secureRandomGetStudents.clearQueue();
+        randomGetStudents.clearQueue();
     }
 }
