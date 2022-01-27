@@ -30,6 +30,7 @@ public class StudentService {
     }
 
     public void addNewStudents(String text) {
+
         String[] strings = text.split("\n");
         for (String s : strings) {
             String[] words = s.split(" ");
@@ -38,17 +39,16 @@ public class StudentService {
     }
 
     public void addNewStudentsWithExcel(String path) {
-        WorkWithExel excel = new WorkWithExel();
+        WorkWithExcel excel = new WorkWithExcel();
         if (path.equals("")){
             return;
         }
-        excel.readExel(path);
-        excelStudentRepository.saveAll(excel.getStudents());
+        excelStudentRepository.saveAll(excel.readExcel(path));
     }
 
     public List<Student> getTwoStudentsFromDifferentTeam() {
         Student[] students = secureRandomGetStudents.getStudents();
-        if (students[0].equals(students[1])) return Collections.emptyList();
+        if (students.length==0) return Collections.emptyList();
         return Arrays.stream(students).collect(Collectors.toList());
     }
 
@@ -63,6 +63,6 @@ public class StudentService {
 
     public void clearAll() {
         studentRepository.deleteAll();
+        secureRandomGetStudents.clearQueue();
     }
-
 }
