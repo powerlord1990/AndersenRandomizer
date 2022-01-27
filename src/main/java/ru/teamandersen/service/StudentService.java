@@ -33,7 +33,6 @@ public class StudentService {
             studentRepository.save(new Student.Builder(Long.parseLong(words[0]), words[1], words[2]).build());
         }
     }
-
     public List<Student> getTwoStudentsFromDifferentTeam() {
         Student[] students = secureRandomGetStudents.getStudents();
         if (students[0].equals(students[1])) return Collections.emptyList();
