@@ -8,25 +8,21 @@ import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.StudentRepository;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
-public class SecureRandomGetStudents {
+public class RandomGetStudents {
     private final StudentRepository studentRepository;
     List<Student> studentPoll = new ArrayList<>();
     List<Student> studentAsk = new ArrayList<>();
 
-
     private boolean isFirst = true;
-    private final SecureRandom random = new SecureRandom();
+    private final Random random = new Random();
     private Student prev;
     private Student last;
 
-    public SecureRandomGetStudents(StudentRepository studentRepository) {
+    public RandomGetStudents(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
