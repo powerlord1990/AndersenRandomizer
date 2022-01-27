@@ -11,9 +11,7 @@ import java.util.List;
 
 @SpringBootApplication
 public class AndersenTeamJavaApplication {
-
     public static void main(String[] args) {
-
+        SpringApplication.run(AndersenTeamJavaApplication.class, args);
     }
-
 }
