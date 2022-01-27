@@ -29,13 +29,13 @@ public class WorkWithExel {
         Iterator<Row> rowIterator = sheet.rowIterator();
         try {
             while (rowIterator.hasNext()) {
-                XSSFCell cell = (XSSFCell) rowIterator.next().getCell(0);
-                long id = (long) cell.getNumericCellValue();
-                XSSFCell cellname = (XSSFCell) rowIterator.next().getCell(1);
-                String fullname = cellname.getStringCellValue();
-                String name = fullname.substring(0, fullname.indexOf(" "));
-                String surname = fullname.substring(fullname.indexOf(" "));
-                students.add(new Student.Builder(id, name, surname).build());
+                rowIterator.forEachRemaining(
+                        x -> students.add(
+                                new Student.Builder(
+                                        (long) x.getCell(0).getNumericCellValue(),
+                                        x.getCell(1).getStringCellValue(),
+                                        x.getCell(2).getStringCellValue())
+                                        .build()));
             }
         } catch (Exception e) {
             e.printStackTrace();
