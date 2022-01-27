@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Table(name = "STUDENTS")
 @Entity
@@ -26,8 +27,8 @@ public class Student {
     @Column(name = "FIRSTNAME")
     private String firstname;
 
-    @Column(name = "SECONDNAME")
-    private String secondname;
+    @Column(name = "SURNAME")
+    private String surname;
 
     @Column(name = "SCORE")
     private Integer score;
@@ -42,15 +43,15 @@ public class Student {
     public static class Builder {
         private final Long teamId;
         private final String firstname;
-        private final String secondname;
+        private final String surname;
         private Integer score = 0;
         private Boolean isAsked = false;
         private Boolean isPolled = false;
 
-        public Builder(Long teamId, String firstname, String secondname) {
+        public Builder(Long teamId, String firstname, String surname) {
             this.teamId = teamId;
             this.firstname = firstname;
-            this.secondname = secondname;
+            this.surname = surname;
         }
 
         public Builder score(int score) {
@@ -76,10 +77,29 @@ public class Student {
     private Student(Builder builder) {
         teamId = builder.teamId;
         firstname = builder.firstname;
-        secondname = builder.secondname;
+        surname = builder.surname;
         score = builder.score;
         isAsked = builder.isAsked;
         isPolled = builder.isPolled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(id, student.id)
+                && Objects.equals(teamId, student.teamId)
+                && Objects.equals(firstname, student.firstname)
+                && Objects.equals(surname, student.surname)
+                && Objects.equals(score, student.score)
+                && Objects.equals(isAsked, student.isAsked)
+                && Objects.equals(isPolled, student.isPolled);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, teamId, firstname, surname, score, isAsked, isPolled);
     }
 
     @Override
@@ -88,7 +108,7 @@ public class Student {
                 "id=" + id +
                 ", teamId=" + teamId +
                 ", firstname='" + firstname + '\'' +
-                ", secondname='" + secondname + '\'' +
+                ", surname='" + surname + '\'' +
                 ", score=" + score +
                 ", isAsked=" + isAsked +
                 ", isPolled=" + isPolled +

@@ -11,7 +11,6 @@ import java.security.SecureRandom;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//TODO need refactoring
 @Component
 public class SecureRandomGetStudents {
     private final StudentRepository studentRepository;
@@ -31,20 +30,23 @@ public class SecureRandomGetStudents {
         if (isFirst) {
             toAsk = getRandomMove(studentRepository.findAll());
             last = toAsk;
+            isFirst = false;
         } else toAsk = prev;
-
         toAsk.setIsAsked(true);
         toPoll = getRandomMove(getStudentToPollFilter(studentRepository.findStudentByIsPolledIsFalse(), toAsk));
         toPoll.setIsPolled(true);
-        studentRepository.save(toAsk);
-        studentRepository.save(toPoll);
+        if(!toAsk.equals(toPoll)){
+            studentRepository.save(toAsk);
+            studentRepository.save(toPoll);
+        }
         prev = toPoll;
-        isFirst = false;
         return new Student[]{toAsk, toPoll}; // must return student which ask and student which poll
     }
 
     private List<Student> getStudentToPollFilter(List<Student> students, Student toAsk) {
-        return students.stream().filter(x -> !x.getIsPolled() && !(x.getTeamId() == toAsk.getTeamId()) && x.getId() != last.getId()).collect(Collectors.toList());
+        return students.stream().filter(x -> !x.getIsPolled()
+                && !(x.getTeamId() == toAsk.getTeamId())
+                && x.getId() != last.getId()).collect(Collectors.toList());
     }
 
     private Student getRandomMove(List<Student> students) {

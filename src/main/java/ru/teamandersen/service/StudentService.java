@@ -5,13 +5,11 @@ package ru.teamandersen.service;
 
 import org.springframework.stereotype.Service;
 import ru.teamandersen.component.SecureRandomGetStudents;
-import ru.teamandersen.dtos.StudentRequestBodyDto;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.StudentRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -28,10 +26,6 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student addNewStudent(StudentRequestBodyDto studentDto) {
-        return studentRepository.save(new Student.Builder(studentDto.getTeamId(), studentDto.getFirstname(), studentDto.getSecondname()).build());
-    }
-
     public void addNewStudents(String text) {
         String[] strings = text.split("\n");
         for (String s : strings) {
@@ -40,15 +34,19 @@ public class StudentService {
         }
     }
 
-    public List<StudentRequestBodyDto> getTwoStudentsFromDifferentTeam() {
+    public List<Student> getTwoStudentsFromDifferentTeam() {
         Student[] students = secureRandomGetStudents.getStudents();
-        List<StudentRequestBodyDto> studentRequestList = new ArrayList<>();
-        for (Student s : students) {
-            studentRequestList.add(new StudentRequestBodyDto(s));
+        if (students[0].equals(students[1])) return Collections.emptyList();
+        return Arrays.stream(students).collect(Collectors.toList());
+    }
+
+    public void setPoint(Long id, int point) {
+        Optional<Student> student = studentRepository.findById(id);
+        if (student.isPresent()) {
+            Student stud = student.get();
+            stud.setScore(stud.getScore() + point);
+            studentRepository.save(stud);
         }
-        if (studentRequestList.get(0).getTeamId() == studentRequestList.get(1).getTeamId())
-            return Collections.emptyList();
-        return studentRequestList;
     }
 
     public void clearAll() {
