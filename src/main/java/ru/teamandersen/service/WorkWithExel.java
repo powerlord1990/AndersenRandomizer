@@ -27,8 +27,8 @@ public class WorkWithExel {
         XSSFSheet sheet = workBook.getSheetAt(0);
 
         Iterator<Row> rowIterator = sheet.rowIterator();
-        try{
-            while(rowIterator.hasNext()){
+        try {
+            while (rowIterator.hasNext()) {
                 XSSFCell cell = (XSSFCell) rowIterator.next().getCell(0);
                 long id = (long) cell.getNumericCellValue();
                 XSSFCell cellname = (XSSFCell) rowIterator.next().getCell(1);
@@ -37,16 +37,14 @@ public class WorkWithExel {
                 String surname = fullname.substring(fullname.indexOf(" "));
                 students.add(new Student.Builder(id, name, surname).build());
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return students;
     }
 
 
-    public List<Student> getStudents(){
+    public List<Student> getStudents() {
         return students;
     }
 }
