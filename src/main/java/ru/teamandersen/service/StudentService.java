@@ -5,31 +5,28 @@ package ru.teamandersen.service;
 
 import org.springframework.stereotype.Service;
 import ru.teamandersen.component.SecureRandomGetStudents;
-import ru.teamandersen.dtos.StudentRequestBodyDto;
 import ru.teamandersen.entity.Student;
+import ru.teamandersen.repository.ExcelStudentRepository;
 import ru.teamandersen.repository.StudentRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final ExcelStudentRepository excelStudentRepository;
 
     private final SecureRandomGetStudents secureRandomGetStudents;
 
-    public StudentService(StudentRepository studentRepository, SecureRandomGetStudents secureRandomGetStudents) {
+    public StudentService(StudentRepository studentRepository, ExcelStudentRepository excelStudentRepository, SecureRandomGetStudents secureRandomGetStudents) {
         this.studentRepository = studentRepository;
+        this.excelStudentRepository = excelStudentRepository;
         this.secureRandomGetStudents = secureRandomGetStudents;
     }
 
     public List<Student> findAll() {
         return studentRepository.findAll();
-    }
-
-    public Student addNewStudent(StudentRequestBodyDto studentDto) {
-        return studentRepository.save(new Student.Builder(studentDto.getTeamId(), studentDto.getFirstname(), studentDto.getSecondname()).build());
     }
 
     public void addNewStudents(String text) {
@@ -41,15 +38,28 @@ public class StudentService {
         }
     }
 
-    public List<StudentRequestBodyDto> getTwoStudentsFromDifferentTeam() {
-        Student[] students = secureRandomGetStudents.getStudents();
-        List<StudentRequestBodyDto> studentRequestList = new ArrayList<>();
-        for (Student s : students) {
-            studentRequestList.add(new StudentRequestBodyDto(s));
+    public void addNewStudentsWithExcel(String path) {
+        WorkWithExel excel = new WorkWithExel();
+        if (path.equals("")){
+            return;
         }
-        if (studentRequestList.get(0).getTeamId() == studentRequestList.get(1).getTeamId())
-            return Collections.emptyList();
-        return studentRequestList;
+        excel.readExel(path);
+        excelStudentRepository.saveAll(excel.getStudents());
+    }
+
+    public List<Student> getTwoStudentsFromDifferentTeam() {
+        Student[] students = secureRandomGetStudents.getStudents();
+        if (students[0].equals(students[1])) return Collections.emptyList();
+        return Arrays.stream(students).collect(Collectors.toList());
+    }
+
+    public void setPoint(Long id, int point) {
+        Optional<Student> student = studentRepository.findById(id);
+        if (student.isPresent()) {
+            Student stud = student.get();
+            stud.setScore(stud.getScore() + point);
+            studentRepository.save(stud);
+        }
     }
 
     public void clearAll() {

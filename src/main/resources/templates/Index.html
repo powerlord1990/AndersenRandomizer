@@ -6,27 +6,63 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="index.js"></script>
 </head>
 <body>
 <div class="container back" ng-controller="indexController">
+    <h3 ng-show="!showed">Опрос завершен!</h3>
+    <div ng-show="showed">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <td>Действие</td>
+                <td>Имя</td>
+                <td>Фамилия</td>
+                <td>№ команды</td>
+                <td>Баллы</td>
+                <td></td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="stud in StudentsToRoll">
+                <td>{{stud.firstname}}</td>
+                <td>{{stud.surname}}</td>
+                <td>{{stud.teamId}}</td>
+                <td>
+                    <button class="btn btn-submit" ng-click="plus(stud.id)">+1</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" ng-click="minus(stud.id)">-1</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>
+        <button class="btn btn-submit" ng-click="play()">Новая пара</button>
+    </p>
     <form class="">
         <textarea id="textarea1" ng-model="input"></textarea>
+        <input ng-model="inputPath">
         <button class="btn btn-submit" ng-click="addNewStudents(input)">Отправить</button>
+        <button class="btn btn-submit" ng-click="import(inputPath)">Отправить путь</button>
         <button class="btn btn-danger" ng-click="clearAll()">Очистить базу</button>
     </form>
+    <hr>
     <table class="table table-hover">
         <thead>
         <tr>
             <td>Id</td>
-            <td>Команда</td>
+            <td>№ Команды</td>
             <td>Имя</td>
             <td>Фамилия</td>
             <td>Очки</td>
             <td>Задавал</td>
             <td>Отвечал</td>
+            <td></td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
@@ -34,19 +70,19 @@
             <td>{{s.id}}</td>
             <td>{{s.teamId}}</td>
             <td>{{s.firstname}}</td>
-            <td>{{s.secondname}}</td>
+            <td>{{s.surname}}</td>
             <td>{{s.score}}</td>
             <td>{{s.isAsked}}</td>
             <td>{{s.isPolled}}</td>
+            <td>
+                <button class="btn btn-submit" ng-click="plus(s.id)">+1</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" ng-click="minus(s.id)">-1</button>
+            </td>
         </tr>
         </tbody>
     </table>
-    <form>
-        <span ng-model = "s1">{{studfirst}}</span>
-        <span ng-model = "s2">{{studsecond}}</span>
-        <span ng-model = "result">{{result}}</span>
-        <button class="btn btn-submit" ng-click="play()">Новая пара</button>
-    </form>
 </div>
 </body>
 </html>

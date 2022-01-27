@@ -10,7 +10,7 @@ import ru.teamandersen.entity.Student;
 public class StudentRequestBodyDto {
     private Long teamId;
     private String firstname;
-    private String secondname;
+    private String surname;
     private Integer score;
     private Boolean isAsked;
     private Boolean isPolled;
@@ -18,7 +18,7 @@ public class StudentRequestBodyDto {
     public StudentRequestBodyDto(Student student) {
         this.teamId = student.getTeamId();
         this.firstname = student.getFirstname();
-        this.secondname = student.getSecondname();
+        this.surname = student.getSurname();
         this.score = student.getScore();
         this.isAsked = student.getIsAsked();
         this.isPolled = student.getIsPolled();
