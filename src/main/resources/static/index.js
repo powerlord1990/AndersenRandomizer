@@ -34,13 +34,27 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             url: contextPath + '/students/play',
             method: 'GET',
         }).then(function (response) {
-            if (response.data == "") {
-                $scope.result = "Все ответили!"
-                $scope.studfirst = "";
-                $scope.studsecond = "";
-            }
-            $scope.studfirst = "Вопрос задает: " + response.data[0].firstname + " " + response.data[0].secondname;
-            $scope.studsecond = "Отвечает на вопрос: " + response.data[1].firstname + " " + response.data[1].secondname;
+            $scope.StudentsToRoll = response.data;
+            $scope.showed = response.data != "";
+            console.log($scope.showed);
+            $scope.fillTable();
+        })
+    };
+
+    $scope.plus = function (id) {
+        $http({
+            url: contextPath + '/students/plus/' + id,
+            method: 'POST',
+        }).then(function () {
+            $scope.fillTable();
+        })
+    };
+
+    $scope.minus = function (id) {
+        $http({
+            url: contextPath + '/students/minus/' + id,
+            method: 'POST',
+        }).then(function () {
             $scope.fillTable();
         })
     };

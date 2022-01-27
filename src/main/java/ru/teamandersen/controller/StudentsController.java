@@ -3,11 +3,8 @@ package ru.teamandersen.controller;
 23.01.2022: Alexey created this file inside the package: ru.teamandersen.controller 
 */
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.teamandersen.dtos.StudentRequestBodyDto;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.service.StudentService;
 
@@ -32,8 +29,17 @@ public class StudentsController {
         studentService.addNewStudents(text);
     }
 
+    @PostMapping("/plus/{id}")
+    public void incPoint(@PathVariable Long id){
+        studentService.setPoint(id, 1);
+    }
+    @PostMapping("/minus/{id}")
+    public void decPoint(@PathVariable Long id){
+        studentService.setPoint(id, -1);
+    }
+
     @GetMapping("/play")
-    public ResponseEntity<List<StudentRequestBodyDto>> getTwoStudentsFromDifferentTeam() {
+    public ResponseEntity<List<Student>> getTwoStudentsFromDifferentTeam() {
         return ResponseEntity.ok(studentService.getTwoStudentsFromDifferentTeam());
     }
 

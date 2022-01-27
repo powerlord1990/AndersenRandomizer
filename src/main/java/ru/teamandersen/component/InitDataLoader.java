@@ -19,13 +19,13 @@ public class InitDataLoader implements ApplicationListener<ContextRefreshedEvent
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        createStudentIfNotExists(1L, "Alexey", "test");
-        createStudentIfNotExists(2L, "Ivan", "test");
-        createStudentIfNotExists(3L, "Kirill", "test");
-        createStudentIfNotExists(4L, "Anton", "test");
+        createStudentIfNotExists(1L, "Alexey");
+        createStudentIfNotExists(2L, "Ivan");
+        createStudentIfNotExists(3L, "Kirill");
+        createStudentIfNotExists(4L, "Anton");
     }
 
-    private void createStudentIfNotExists(Long teamId, String firstname, String secondname) {
-        studentRepository.save(new Student.Builder(teamId, firstname, secondname).build());
+    private void createStudentIfNotExists(Long teamId, String firstname) {
+        studentRepository.save(new Student.Builder(teamId, firstname, "test").build());
     }
 }
