@@ -45,7 +45,9 @@
     </p>
     <form class="">
         <textarea id="textarea1" ng-model="input"></textarea>
+        <input ng-model="inputPath">
         <button class="btn btn-submit" ng-click="addNewStudents(input)">Отправить</button>
+        <button class="btn btn-submit" ng-click="import(inputPath)">Отправить путь</button>
         <button class="btn btn-danger" ng-click="clearAll()">Очистить базу</button>
     </form>
     <hr>

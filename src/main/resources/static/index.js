@@ -59,5 +59,15 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         })
     };
 
+    $scope.import = function (path){
+        $http({
+            url: contextPath + '/students/import',
+            method: 'POST',
+            data: path
+        }).then(function () {
+            $scope.fillTable();
+        })
+    }
+
     $scope.fillTable();
 });

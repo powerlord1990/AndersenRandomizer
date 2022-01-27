@@ -1,7 +1,5 @@
 package ru.teamandersen.service;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -15,21 +13,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
 public class WorkWithExel {
+    private static List<Student> students = new ArrayList<>();
 
-    private static List<Student.Builder> students = new ArrayList<>();
-
-    public List<Student.Builder> readExel() {
-
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter path...");
-        //String path = sc.nextLine();
-        String path = "C:\\Users\\Tony\\IdeaProjects\\AndersenRandomaizer\\table.xlsx";
+    public List<Student> readExel(String path) {
         XSSFWorkbook workBook = new XSSFWorkbook();
-
         try {
             workBook = new XSSFWorkbook(new FileInputStream(path));
         } catch (IOException e) {
@@ -46,19 +35,18 @@ public class WorkWithExel {
                 String fullname = cellname.getStringCellValue();
                 String name = fullname.substring(0, fullname.indexOf(" "));
                 String surname = fullname.substring(fullname.indexOf(" "));
-                students.add(new Student.Builder(id, name, surname));
-                System.out.println(id + " " + name + " " + surname);
+                students.add(new Student.Builder(id, name, surname).build());
             }
         }
         catch (Exception e)
         {
-            System.out.println("WriteFormatError");
+            e.printStackTrace();
         }
         return students;
     }
 
 
-    public List<Student.Builder> getStudents(){
+    public List<Student> getStudents(){
         return students;
     }
 }

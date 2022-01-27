@@ -30,12 +30,19 @@ public class StudentsController {
     }
 
     @PostMapping("/plus/{id}")
-    public void incPoint(@PathVariable Long id){
+    public void incPoint(@PathVariable Long id) {
         studentService.setPoint(id, 1);
     }
+
     @PostMapping("/minus/{id}")
-    public void decPoint(@PathVariable Long id){
+    public void decPoint(@PathVariable Long id) {
         studentService.setPoint(id, -1);
+    }
+
+    @PostMapping("/import")
+    public ResponseEntity decPoint(@RequestBody String path) {
+        studentService.addNewStudentsWithExcel(path);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/play")
