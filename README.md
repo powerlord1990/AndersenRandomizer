@@ -11,9 +11,11 @@ but if last 2 user's in queue from same team - they must ask question to each ot
 1. Make this format of excel data:
 
 ![example of excel format](src/main/resources/static/imgs/excel.png)
+
 2. Set path of your's excel file to that input block
 
 ![Input place](src/main/resources/static/imgs/excel2.png)
+
 3. Press that button
 
 ![Button to import](src/main/resources/static/imgs/excel3.png)
