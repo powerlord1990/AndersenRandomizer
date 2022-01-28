@@ -28,7 +28,6 @@ public class RandomGetStudents {
     public Student[] getStudents() {
         studentAsk = studentRepository.findStudentByIsAskedIsFalse();
         studentPoll = studentRepository.findStudentsByIsPolledIsFalse();
-        check(studentAsk, studentPoll);
         Student ask;
 
         if (isFirst) {
@@ -37,7 +36,7 @@ public class RandomGetStudents {
             isFirst = false;
         } else ask = prev;
 
-        Student poll = getRandomMove(getStudentToPollFilter(studentPoll, last));
+        Student poll = getRandomMove(getStudentToPollFilter(studentPoll, ask));
         if (!studentRepository.findAll().isEmpty() && ask != poll) {
             ask.setIsAsked(true);
             poll.setIsPolled(true);
@@ -49,19 +48,14 @@ public class RandomGetStudents {
         return new Student[]{};
     }
 
-    private void check(List<Student> a, List<Student> b){
-        isFirst = a.equals(b);
-    }
-
     private List<Student> getStudentToPollFilter(List<Student> students, Student toAsk) {
         for (Student s : students) {
             if (!toAsk.getTeamId().equals(s.getTeamId())) {
                 return students.stream().filter(x -> !x.getIsPolled()
-                        && !(x.getTeamId() == toAsk.getTeamId())
+                        && x.getTeamId() != toAsk.getTeamId()
                         && x.getId() != last.getId()).collect(Collectors.toList());
             }
             return students.stream().filter(x -> toAsk != x && !x.getIsPolled() && x.getId() != last.getId()).collect(Collectors.toList());
-
         }
         return Collections.emptyList();
     }
@@ -74,6 +68,7 @@ public class RandomGetStudents {
     }
 
     public void clearQueue() {
+        isFirst = true;
         prev = null;
         last = null;
     }
