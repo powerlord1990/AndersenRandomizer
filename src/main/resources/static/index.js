@@ -25,6 +25,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             url: contextPath + '/students',
             method: 'DELETE',
         }).then(function () {
+            $scope.showed = false;
             $scope.fillTable();
         })
     };
@@ -34,9 +35,9 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             url: contextPath + '/students/play',
             method: 'GET',
         }).then(function (response) {
-            $scope.StudentsToRoll = response.data;
+            $scope.StudentOne = response.data[0];
+            $scope.StudentTwo = response.data[1];
             $scope.showed = response.data != "";
-            console.log($scope.showed);
             $scope.fillTable();
         })
     };
