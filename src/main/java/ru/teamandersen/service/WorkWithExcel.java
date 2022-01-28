@@ -28,12 +28,9 @@ public class WorkWithExcel {
         Iterator<Row> rowIterator = sheet.rowIterator();
         try {
             while (rowIterator.hasNext()) {
-                XSSFCell cell = (XSSFCell) rowIterator.next().getCell(0);
-                long id = (long) cell.getNumericCellValue();
-                XSSFCell cellname = (XSSFCell) rowIterator.next().getCell(1);
-                String fullname = cellname.getStringCellValue();
-                String name = fullname.substring(0, fullname.indexOf(" "));
-                String surname = fullname.substring(fullname.indexOf(" "));
+                long id = (long) rowIterator.next().getCell(0).getNumericCellValue();
+                String name = rowIterator.next().getCell(1).getStringCellValue();
+                String surname = rowIterator.next().getCell(2).getStringCellValue();
                 students.add(new Student.Builder(id, name, surname).build());
             }
         } catch (Exception e) {
