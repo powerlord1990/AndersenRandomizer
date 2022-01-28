@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.StudentRepository;
 
-import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
 
