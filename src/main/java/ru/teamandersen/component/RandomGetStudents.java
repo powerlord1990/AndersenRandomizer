@@ -36,7 +36,7 @@ public class RandomGetStudents {
             isFirst = false;
         } else ask = prev;
 
-        Student poll = getRandomMove(getStudentToPollFilter(studentPoll, last));
+        Student poll = getRandomMove(getStudentToPollFilter(studentPoll, ask));
         if (!studentRepository.findAll().isEmpty() && ask != poll) {
             ask.setIsAsked(true);
             poll.setIsPolled(true);
@@ -52,11 +52,10 @@ public class RandomGetStudents {
         for (Student s : students) {
             if (!toAsk.getTeamId().equals(s.getTeamId())) {
                 return students.stream().filter(x -> !x.getIsPolled()
-                        && !(x.getTeamId() == toAsk.getTeamId())
+                        && x.getTeamId() != toAsk.getTeamId()
                         && x.getId() != last.getId()).collect(Collectors.toList());
             }
             return students.stream().filter(x -> toAsk != x && !x.getIsPolled() && x.getId() != last.getId()).collect(Collectors.toList());
-
         }
         return Collections.emptyList();
     }
@@ -69,6 +68,7 @@ public class RandomGetStudents {
     }
 
     public void clearQueue() {
+        isFirst = true;
         prev = null;
         last = null;
     }
