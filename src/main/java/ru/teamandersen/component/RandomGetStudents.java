@@ -28,6 +28,7 @@ public class RandomGetStudents {
     public Student[] getStudents() {
         studentAsk = studentRepository.findStudentByIsAskedIsFalse();
         studentPoll = studentRepository.findStudentsByIsPolledIsFalse();
+        check(studentAsk, studentPoll);
         Student ask;
 
         if (isFirst) {
@@ -46,6 +47,10 @@ public class RandomGetStudents {
             return new Student[]{ask, poll};
         }
         return new Student[]{};
+    }
+
+    private void check(List<Student> a, List<Student> b){
+        isFirst = a.equals(b);
     }
 
     private List<Student> getStudentToPollFilter(List<Student> students, Student toAsk) {
