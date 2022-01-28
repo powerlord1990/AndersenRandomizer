@@ -11,8 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    Optional<Student> findStudentByFirstname(String firstname);
-    Optional<Student> findStudentByFirstnameAndSurname(String firstname, String surname);
     List<Student> findStudentByIsAskedIsFalse();
-    List<Student> findStudentByIsPolledIsFalse();
+    List<Student> findStudentsByIsPolledIsFalse();
 }

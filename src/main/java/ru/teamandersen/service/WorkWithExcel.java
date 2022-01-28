@@ -14,10 +14,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class WorkWithExel {
-    private static List<Student> students = new ArrayList<>();
-
-    public List<Student> readExel(String path) {
+public class WorkWithExcel {
+    public List<Student> readExcel(String path) {
+        List<Student> students = new ArrayList<>();
         XSSFWorkbook workBook = new XSSFWorkbook();
         try {
             workBook = new XSSFWorkbook(new FileInputStream(path));
@@ -30,7 +29,7 @@ public class WorkWithExel {
         try {
             while (rowIterator.hasNext()) {
                 rowIterator.forEachRemaining(
-                        x -> students.add(
+                        x->students.add(
                                 new Student.Builder(
                                         (long) x.getCell(0).getNumericCellValue(),
                                         x.getCell(1).getStringCellValue(),
@@ -40,11 +39,6 @@ public class WorkWithExel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return students;
-    }
-
-
-    public List<Student> getStudents() {
         return students;
     }
 }

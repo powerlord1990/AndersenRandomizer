@@ -39,7 +39,6 @@ public class Student {
     @Column(name = "IS_POLLED")
     private Boolean isPolled;
 
-
     public static class Builder {
         private final Long teamId;
         private final String firstname;
