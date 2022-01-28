@@ -16,6 +16,7 @@
         <table class="table table-hover">
             <thead>
             <tr>
+                <td>Роль</td>
                 <td>Имя</td>
                 <td>Фамилия</td>
                 <td>№ команды</td>
@@ -25,15 +26,28 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="stud in StudentsToRoll">
-                <td>{{stud.firstname}}</td>
-                <td>{{stud.surname}}</td>
-                <td>{{stud.teamId}}</td>
+            <tr>
+                <td>Задающий</td>
+                <td>{{StudentOne.firstname}}</td>
+                <td>{{StudentOne.surname}}</td>
+                <td>{{StudentOne.teamId}}</td>
                 <td>
-                    <button class="btn btn-submit" ng-click="plus(stud.id)">+1</button>
+                    <button class="btn btn-submit" ng-click="plus(StudentOne.id)">+1</button>
                 </td>
                 <td>
-                    <button class="btn btn-danger" ng-click="minus(stud.id)">-1</button>
+                    <button class="btn btn-danger" ng-click="minus(StudentOne.id)">-1</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Отвечающий</td>
+                <td>{{StudentTwo.firstname}}</td>
+                <td>{{StudentTwo.surname}}</td>
+                <td>{{StudentTwo.teamId}}</td>
+                <td>
+                    <button class="btn btn-submit" ng-click="plus(StudentTwo.id)">+1</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" ng-click="minus(StudentTwo.id)">-1</button>
                 </td>
             </tr>
             </tbody>
@@ -42,13 +56,17 @@
     <p>
         <button class="btn btn-submit" ng-click="play()">Новая пара</button>
     </p>
-    <form class="">
-        <textarea id="textarea1" ng-model="input"></textarea>
-        <input ng-model="inputPath">
-        <button class="btn btn-submit" ng-click="addNewStudents(input)">Отправить</button>
-        <button class="btn btn-submit" ng-click="import(inputPath)">Отправить путь</button>
-        <button class="btn btn-danger" ng-click="clearAll()">Очистить базу</button>
-    </form>
+    <div class="cards">
+        <div class="card">
+            <textarea class="textareacustom" name="text" placeholder="Вставьте ваш текст..." cols="40" ng-model="input"></textarea>
+            <button class="btn btn-submit" ng-click="addNewStudents(input)">Отправить</button>
+        </div>
+        <div class="card">
+            <input ng-model="inputPath" name="textInput" class="inputPath" placeholder="Вставьте путь на файл Excel...">
+            <button class="btn btn-submit" ng-click="import(inputPath)">Отправить путь</button>
+        </div>
+    </div>
+    <button class="btn btn-danger" ng-click="clearAll()">Очистить базу</button>
     <hr>
     <table class="table table-hover">
         <thead>

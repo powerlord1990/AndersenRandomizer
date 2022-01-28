@@ -61,6 +61,7 @@ public class StudentService {
     }
 
     public void clearAll() {
+
         studentRepository.deleteAll();
         randomGetStudents.clearQueue();
     }
