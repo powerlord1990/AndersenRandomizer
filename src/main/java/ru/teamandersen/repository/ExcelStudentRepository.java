@@ -4,7 +4,9 @@ package ru.teamandersen.repository;
 */
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import ru.teamandersen.entity.Student;
 
+@Repository
 public interface ExcelStudentRepository extends CrudRepository<Student, Long> {
 }
