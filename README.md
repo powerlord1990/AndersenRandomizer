@@ -7,7 +7,7 @@ questioner,2nd is respondent;
 * User's from same team, can't ask a question to each other, 
 but if last 2 user's in queue from same team - they must ask question to each other.
 
-## How to use Excel import:
+## How to use Excel (.xlsx) import:
 
 1. Make this format of excel import data:
 
