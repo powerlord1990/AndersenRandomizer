@@ -5,6 +5,7 @@ package ru.teamandersen.service;
 
 import org.springframework.stereotype.Service;
 import ru.teamandersen.component.RandomGetStudents;
+import ru.teamandersen.component.WorkWithExcel;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.ExcelStudentRepository;
 import ru.teamandersen.repository.StudentRepository;
@@ -17,11 +18,13 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final ExcelStudentRepository excelStudentRepository;
     private final RandomGetStudents randomGetStudents;
+    private final WorkWithExcel excel;
 
-    public StudentService(StudentRepository studentRepository, ExcelStudentRepository excelStudentRepository, RandomGetStudents randomGetStudents) {
+    public StudentService(StudentRepository studentRepository, ExcelStudentRepository excelStudentRepository, RandomGetStudents randomGetStudents, WorkWithExcel excel) {
         this.studentRepository = studentRepository;
         this.excelStudentRepository = excelStudentRepository;
         this.randomGetStudents = randomGetStudents;
+        this.excel = excel;
     }
 
     public List<Student> findAll() {
@@ -38,7 +41,6 @@ public class StudentService {
     }
 
     public void addNewStudentsWithExcel(String path) {
-        WorkWithExcel excel = new WorkWithExcel();
         if (path.equals("")){
             return;
         }

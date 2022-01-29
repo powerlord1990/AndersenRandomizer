@@ -1,9 +1,10 @@
-package ru.teamandersen.service;
+package ru.teamandersen.component;
 
 import org.apache.poi.ss.usermodel.Row;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.springframework.stereotype.Component;
 import ru.teamandersen.entity.Student;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Component
 public class WorkWithExcel {
     public List<Student> readExcel(String path) {
         List<Student> students = new ArrayList<>();
