@@ -34,12 +34,6 @@ public class InitDataLoader implements ApplicationListener<ContextRefreshedEvent
         createStudentIfNotExists(4L, "2134");
         createStudentIfNotExists(5L, "6456");
         createStudentIfNotExists(5L, "234");
-//        createStudentIfNotExists(8L, "23");
-//        createStudentIfNotExists(9L, "45743345");
-//        createStudentIfNotExists(9L, "756345");
-//        createStudentIfNotExists(10L, "7567345");
-//        createStudentIfNotExists(10L, "76534");
-//        createStudentIfNotExists(11L, "8567345");
     }
 
     private void createStudentIfNotExists(Long teamId, String firstname) {
