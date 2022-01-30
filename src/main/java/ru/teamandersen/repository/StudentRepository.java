@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import ru.teamandersen.entity.Student;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {

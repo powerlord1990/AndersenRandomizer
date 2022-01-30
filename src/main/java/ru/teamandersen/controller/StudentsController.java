@@ -5,6 +5,7 @@ package ru.teamandersen.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.teamandersen.dtos.StudentResponseDto;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.service.StudentService;
 
@@ -45,8 +46,14 @@ public class StudentsController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("")
+    public ResponseEntity restartQuiz(){
+        studentService.restartQuiz();
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/play")
-    public ResponseEntity<List<Student>> getTwoStudentsFromDifferentTeam() {
+    public ResponseEntity<List<StudentResponseDto>> getTwoStudentsFromDifferentTeam() {
         return ResponseEntity.ok(studentService.getTwoStudentsFromDifferentTeam());
     }
 

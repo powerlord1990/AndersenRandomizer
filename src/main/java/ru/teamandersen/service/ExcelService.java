@@ -2,8 +2,8 @@ package ru.teamandersen.service;
 
 import org.apache.poi.ss.usermodel.Row;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.springframework.stereotype.Service;
 import ru.teamandersen.entity.Student;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class WorkWithExcel {
+@Service
+public class ExcelService {
     public List<Student> readExcel(String path) {
         List<Student> students = new ArrayList<>();
         XSSFWorkbook workBook = new XSSFWorkbook();
@@ -29,7 +30,7 @@ public class WorkWithExcel {
         try {
             while (rowIterator.hasNext()) {
                 rowIterator.forEachRemaining(
-                        x->students.add(
+                        x -> students.add(
                                 new Student.Builder(
                                         (long) x.getCell(0).getNumericCellValue(),
                                         x.getCell(1).getStringCellValue(),

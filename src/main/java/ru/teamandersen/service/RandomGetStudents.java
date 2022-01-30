@@ -1,16 +1,18 @@
-package ru.teamandersen.component;
+package ru.teamandersen.service;
 /* 
 24.01.2022: Alexey created this file inside the package: ru.teamandersen.component 
 */
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.StudentRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class RandomGetStudents {
     private final StudentRepository studentRepository;
     List<Student> studentPoll = new ArrayList<>();
@@ -55,9 +57,8 @@ public class RandomGetStudents {
                         && x.getTeamId() != toAsk.getTeamId()
                         && x.getId() != last.getId()).collect(Collectors.toList());
             }
-            return students.stream().filter(x -> toAsk != x && !x.getIsPolled() && x.getId() != last.getId()).collect(Collectors.toList());
         }
-        return Collections.emptyList();
+        return students.stream().filter(x -> toAsk != x && !x.getIsPolled() && x.getId() != last.getId()).collect(Collectors.toList());
     }
 
     private Student getRandomMove(List<Student> students) {

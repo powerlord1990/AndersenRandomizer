@@ -4,23 +4,20 @@ package ru.teamandersen.service;
 */
 
 import org.springframework.stereotype.Service;
-import ru.teamandersen.component.RandomGetStudents;
+import ru.teamandersen.dtos.StudentResponseDto;
 import ru.teamandersen.entity.Student;
-import ru.teamandersen.repository.ExcelStudentRepository;
 import ru.teamandersen.repository.StudentRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
+//TODO добавить метод, который должен возвращать текущее состояние опроса и обновлять его при вызове опроса "/play"
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
-    private final ExcelStudentRepository excelStudentRepository;
     private final RandomGetStudents randomGetStudents;
 
-    public StudentService(StudentRepository studentRepository, ExcelStudentRepository excelStudentRepository, RandomGetStudents randomGetStudents) {
+    public StudentService(StudentRepository studentRepository, RandomGetStudents randomGetStudents) {
         this.studentRepository = studentRepository;
-        this.excelStudentRepository = excelStudentRepository;
         this.randomGetStudents = randomGetStudents;
     }
 
@@ -38,17 +35,19 @@ public class StudentService {
     }
 
     public void addNewStudentsWithExcel(String path) {
-        WorkWithExcel excel = new WorkWithExcel();
-        if (path.equals("")){
+        ExcelService excel = new ExcelService();
+        if (path.equals("")) {
             return;
         }
-        excelStudentRepository.saveAll(excel.readExcel(path));
+        studentRepository.saveAll(excel.readExcel(path));
     }
 
-    public List<Student> getTwoStudentsFromDifferentTeam() {
+    public List<StudentResponseDto> getTwoStudentsFromDifferentTeam() {
         Student[] students = randomGetStudents.getStudents();
-        if (students.length==0) return Collections.emptyList();
-        return Arrays.stream(students).collect(Collectors.toList());
+        List<StudentResponseDto> studentRequestBodyDto = new ArrayList<>();
+        if (students.length == 0) return Collections.emptyList();
+        Arrays.stream(students).forEach(std -> studentRequestBodyDto.add(new StudentResponseDto(std)));
+        return studentRequestBodyDto;
     }
 
     public void setPoint(Long id, int point) {
@@ -60,8 +59,19 @@ public class StudentService {
         }
     }
 
-    public void clearAll() {
+    public void restartQuiz() {
+        List<Student> students = studentRepository.findAll();
+        students.forEach(this::setFalseForAllQuiz);
+        studentRepository.saveAll(students);
+    }
 
+    private Student setFalseForAllQuiz(Student student) {
+        student.setIsPolled(false);
+        student.setIsAsked(false);
+        return student;
+    }
+
+    public void clearAll() {
         studentRepository.deleteAll();
         randomGetStudents.clearQueue();
     }
