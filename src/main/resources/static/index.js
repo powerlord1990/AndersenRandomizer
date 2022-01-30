@@ -20,6 +20,15 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         })
     };
 
+    $scope.restartQuiz = function () {
+        $http({
+            url: contextPath + '/students',
+            method: 'PUT',
+        }).then(function () {
+            $scope.fillTable();
+        })
+    };
+
     $scope.clearAll = function () {
         $http({
             url: contextPath + '/students',

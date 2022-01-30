@@ -5,6 +5,7 @@ package ru.teamandersen.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.teamandersen.dtos.StudentResponseDto;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.service.StudentService;
 
@@ -30,13 +31,13 @@ public class StudentsController {
     }
 
     @PostMapping("/plus/{id}")
-    public void incPoint(@PathVariable Long id) {
-        studentService.setPoint(id, 1);
+    public void incPoint(@PathVariable Long id, @RequestBody Double score) {
+        studentService.setPoint(id, score);
     }
 
     @PostMapping("/minus/{id}")
-    public void decPoint(@PathVariable Long id) {
-        studentService.setPoint(id, -1);
+    public void decPoint(@PathVariable Long id, @RequestBody Double score) {
+        studentService.setPoint(id, score);
     }
 
     @PostMapping("/import")
@@ -45,8 +46,14 @@ public class StudentsController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("")
+    public ResponseEntity restartQuiz(){
+        studentService.restartQuiz();
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/play")
-    public ResponseEntity<List<Student>> getTwoStudentsFromDifferentTeam() {
+    public ResponseEntity<List<StudentResponseDto>> getTwoStudentsFromDifferentTeam() {
         return ResponseEntity.ok(studentService.getTwoStudentsFromDifferentTeam());
     }
 

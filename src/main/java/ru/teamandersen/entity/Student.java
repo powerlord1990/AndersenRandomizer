@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Table(name = "STUDENTS")
@@ -31,7 +32,7 @@ public class Student {
     private String surname;
 
     @Column(name = "SCORE")
-    private Integer score;
+    private BigDecimal score;
 
     @Column(name = "IS_ASKED")
     private Boolean isAsked;
@@ -43,7 +44,7 @@ public class Student {
         private final Long teamId;
         private final String firstname;
         private final String surname;
-        private Integer score = 0;
+        private BigDecimal score = BigDecimal.valueOf(0);
         private Boolean isAsked = false;
         private Boolean isPolled = false;
 
@@ -53,7 +54,7 @@ public class Student {
             this.surname = surname;
         }
 
-        public Builder score(int score) {
+        public Builder score(BigDecimal score) {
             this.score = score;
             return this;
         }

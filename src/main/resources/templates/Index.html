@@ -58,7 +58,8 @@
     </p>
     <div class="cards">
         <div class="card">
-            <textarea class="textareacustom" name="text" placeholder="Вставьте ваш текст..." cols="40" ng-model="input"></textarea>
+            <textarea class="textareacustom" name="text" placeholder="Вставьте ваш текст..." cols="40"
+                      ng-model="input"></textarea>
             <button class="btn btn-submit" ng-click="addNewStudents(input)">Отправить</button>
         </div>
         <div class="card">
@@ -67,6 +68,7 @@
         </div>
     </div>
     <button class="btn btn-danger" ng-click="clearAll()">Очистить базу</button>
+    <button class="btn btn-danger" ng-click="restartQuiz()">Начать заново</button>
     <hr>
     <table class="table table-hover">
         <thead>
