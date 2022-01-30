@@ -8,6 +8,7 @@ import ru.teamandersen.dtos.StudentResponseDto;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.repository.StudentRepository;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 //TODO добавить метод, который должен возвращать текущее состояние опроса и обновлять его при вызове опроса "/play"
@@ -50,11 +51,11 @@ public class StudentService {
         return studentRequestBodyDto;
     }
 
-    public void setPoint(Long id, int point) {
+    public void setPoint(Long id, double point) {
         Optional<Student> student = studentRepository.findById(id);
         if (student.isPresent()) {
             Student stud = student.get();
-            stud.setScore(stud.getScore() + point);
+            stud.setScore(stud.getScore().add(BigDecimal.valueOf(point)));
             studentRepository.save(stud);
         }
     }

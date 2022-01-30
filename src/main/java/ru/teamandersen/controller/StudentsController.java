@@ -31,13 +31,13 @@ public class StudentsController {
     }
 
     @PostMapping("/plus/{id}")
-    public void incPoint(@PathVariable Long id) {
-        studentService.setPoint(id, 1);
+    public void incPoint(@PathVariable Long id, @RequestBody Double score) {
+        studentService.setPoint(id, score);
     }
 
     @PostMapping("/minus/{id}")
-    public void decPoint(@PathVariable Long id) {
-        studentService.setPoint(id, -1);
+    public void decPoint(@PathVariable Long id, @RequestBody Double score) {
+        studentService.setPoint(id, score);
     }
 
     @PostMapping("/import")
