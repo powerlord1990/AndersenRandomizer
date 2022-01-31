@@ -8,11 +8,13 @@ import ru.teamandersen.entity.Student;
 
 @Data
 public class StudentResponseDto {
+    private Long id;
     private Long teamId;
     private String firstname;
     private String surname;
 
     public StudentResponseDto(Student student) {
+        this.id = student.getId();
         this.teamId = student.getTeamId();
         this.firstname = student.getFirstname();
         this.surname = student.getSurname();

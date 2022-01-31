@@ -32,10 +32,11 @@
                 <td>{{StudentOne.surname}}</td>
                 <td>{{StudentOne.teamId}}</td>
                 <td>
-                    <button class="btn btn-submit" ng-click="plus(StudentOne.id)">+1</button>
+                    <input ng-model="scoreInputStdOne" type="number" name="scoreInput" class="inputPath" value="0"
+                           step="0.1">
                 </td>
                 <td>
-                    <button class="btn btn-danger" ng-click="minus(StudentOne.id)">-1</button>
+                    <button class="btn btn-danger" ng-click="score(StudentOne.id, scoreInputStdOne)">Отправить</button>
                 </td>
             </tr>
             <tr>
@@ -44,10 +45,11 @@
                 <td>{{StudentTwo.surname}}</td>
                 <td>{{StudentTwo.teamId}}</td>
                 <td>
-                    <button class="btn btn-submit" ng-click="plus(StudentTwo.id)">+1</button>
+                    <input ng-model="scoreInputStdTwo" type="number" name="scoreInput" class="inputPath" value="0"
+                           step="0.1">
                 </td>
                 <td>
-                    <button class="btn btn-danger" ng-click="minus(StudentTwo.id)">-1</button>
+                    <button class="btn btn-danger" ng-click="score(StudentTwo.id, scoreInputStdTwo)">Отправить</button>
                 </td>
             </tr>
             </tbody>
@@ -82,6 +84,7 @@
             <td>Отвечал</td>
             <td></td>
             <td></td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
@@ -94,10 +97,10 @@
             <td>{{s.isAsked}}</td>
             <td>{{s.isPolled}}</td>
             <td>
-                <button class="btn btn-submit" ng-click="plus(s.id)">+1</button>
+                <input ng-model="scoreInput" type="number" name="scoreInput" class="inputPath" value="0" step="0.1">
             </td>
             <td>
-                <button class="btn btn-danger" ng-click="minus(s.id)">-1</button>
+                <button class="btn btn-danger" ng-click="score(s.id, scoreInput)">Отправить</button>
             </td>
         </tr>
         </tbody>

@@ -30,15 +30,11 @@ public class StudentsController {
         studentService.addNewStudents(text);
     }
 
-    @PostMapping("/plus/{id}")
+    @PostMapping("/score/{id}")
     public void incPoint(@PathVariable Long id, @RequestBody Double score) {
         studentService.setPoint(id, score);
     }
 
-    @PostMapping("/minus/{id}")
-    public void decPoint(@PathVariable Long id, @RequestBody Double score) {
-        studentService.setPoint(id, score);
-    }
 
     @PostMapping("/import")
     public ResponseEntity decPoint(@RequestBody String path) {

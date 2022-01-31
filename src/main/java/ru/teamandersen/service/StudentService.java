@@ -10,6 +10,7 @@ import ru.teamandersen.repository.StudentRepository;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 //TODO добавить метод, который должен возвращать текущее состояние опроса и обновлять его при вызове опроса "/play"
 @Service

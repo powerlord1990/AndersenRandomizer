@@ -18,7 +18,7 @@ import java.util.Objects;
 @Setter
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private Long id;
 
@@ -39,6 +39,7 @@ public class Student {
 
     @Column(name = "IS_POLLED")
     private Boolean isPolled;
+
 
     public static class Builder {
         private final Long teamId;

@@ -11,6 +11,18 @@
     justify-content: center;
 }
 
+.pointCards{
+    display: inline-flex;
+    justify-content: center;
+}
+
+.pointCard{
+    width: 150px;
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+}
+
 .card{
     height: 150px;
     width: 400px;
