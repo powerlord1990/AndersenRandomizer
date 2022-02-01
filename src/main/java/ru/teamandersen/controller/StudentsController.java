@@ -5,7 +5,6 @@ package ru.teamandersen.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.teamandersen.dtos.StudentResponseDto;
 import ru.teamandersen.entity.Student;
 import ru.teamandersen.service.StudentService;
 
