@@ -51,19 +51,11 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         })
     };
 
-    $scope.plus = function (id) {
+    $scope.score = function (id, score) {
         $http({
-            url: contextPath + '/students/plus/' + id,
+            url: contextPath + '/students/score/' + id,
             method: 'POST',
-        }).then(function () {
-            $scope.fillTable();
-        })
-    };
-
-    $scope.minus = function (id) {
-        $http({
-            url: contextPath + '/students/minus/' + id,
-            method: 'POST',
+            data: score
         }).then(function () {
             $scope.fillTable();
         })

@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 @Service
 public class RandomGetStudents {
     private final StudentRepository studentRepository;
-    List<Student> studentPoll = new ArrayList<>();
-    List<Student> studentAsk = new ArrayList<>();
+    private List<Student> studentPoll = new ArrayList<>();
+    private List<Student> studentAsk = new ArrayList<>();
 
     private boolean isFirst = true;
     private final Random random = new Random();
@@ -67,7 +67,7 @@ public class RandomGetStudents {
         }
         return students.get(random.nextInt(students.size()));
     }
-
+    
     public void clearQueue() {
         isFirst = true;
         prev = null;
